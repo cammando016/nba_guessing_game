@@ -1,33 +1,47 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import gameLogo from './assets/images/banner.jpg'
 import './App.css'
+import Player from './components/player'
+import Guess from './components/recent-guess'
 
 function App() {
   const [count, setCount] = useState(0)
 
+  //const playerDict [];
+
   return (
+
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className='header'>
+        <img
+          className='banner-image'
+          src={gameLogo}
+          alt='Game Logo'
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+
+      <div className='content'>
+        <Player name={'Devin Booker'}/>
+
+        <div id='guess-input'>
+          <input type='text' placeholder="Guess the player's team"></input>
+        </div>
+
+        <div id='game-interact-buttons'>
+          <button type='submit'>Submit Guess</button>
+          <button>Reset Game</button>
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      <div className='guesses'>
+        <Guess />
+        <Guess />
+        <Guess />
+        <Guess />
+        <Guess />
+      </div>
     </>
   )
 }
