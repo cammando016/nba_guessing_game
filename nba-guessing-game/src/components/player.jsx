@@ -5,7 +5,7 @@ function Player({ name }) {
     return (
         <>
             <div className="player-name">
-                <p>{name}</p>
+                <h3>{name}</h3>
             </div>
             <div className="player-photo-div">
                 <img className="player-photo" src={photo} alt="Devin Booker Photo" />
