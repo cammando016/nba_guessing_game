@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 
 //Component imports
@@ -13,11 +12,8 @@ import LeftCourt from './assets/images/displays/court.jpg'
 import RightCourt from './assets/images/displays/court-right.jpg'
 
 function App() {
-  
-  const [count, setCount] = useState(0)
 
   return (
-
     <div className = 'full-screen'>
       <Background 
         className='left' 
@@ -26,7 +22,6 @@ function App() {
       />
 
       <div className='screen-middle'>
-
         <div className='header'>
           <img
             className='banner-image'
@@ -41,7 +36,6 @@ function App() {
         </div>
 
         <Scoreboard />
-
       </div>
 
       <Background 

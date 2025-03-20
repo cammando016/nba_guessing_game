@@ -1,14 +1,14 @@
 import React from "react";
-import photo from '../assets/images/players/devin_booker.jpg'
+//import photo from '../assets/images/players/devin_booker.jpg'
 
-function Player({ name }) {
+function Player({ name, photo, altText }) {
     return (
         <>
             <div className="player-name">
                 <h3>{name}</h3>
             </div>
             <div className="player-photo-div">
-                <img className="player-photo" src={photo} alt="Devin Booker Photo" />
+                <img className="player-photo" src={photo} alt={altText} />
             </div>
         </>
     )

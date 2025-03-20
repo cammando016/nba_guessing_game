@@ -1,14 +1,9 @@
 import React from "react";
-import { useState } from "react";
 
-
-// Needs state added to track the correct or incorrect guess
-
-function Guess () {
-
+function Guess ( {correctResult} ) {
     return (
         <>
-            <p className="guess">-</p>
+            <p className={`guess-${correctResult} guess`}>{correctResult}</p>
         </>
     )
 }

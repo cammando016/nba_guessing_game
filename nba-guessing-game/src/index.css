@@ -55,6 +55,14 @@
   width: 25px;
 }
 
+.guess-C {
+  background-color: green;
+}
+
+.guess-I {
+  background-color: red;
+}
+
 .main-content {
   display: flex;
   flex-direction: row;
