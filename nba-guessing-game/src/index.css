@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Digital-7';
+  src: url('/src/assets/images/digital-7.ttf');
+}
+
 #root {
   padding: 0;
 }
@@ -21,16 +26,6 @@
   height: 100vh;
   width: 20vw;
 }
-
-/* To be added, background image for content that updates for user fav team */
-/* .game-content {
-  background-image: url('assets/images/phx-logo.png');
-  background-size: contain;
-  background-position: center;
-  max-width: 100%;
-  max-height: 100%;
-  opacity: 30%;
-} */
 
 .screen-middle {
   display: flex;
@@ -86,20 +81,60 @@
 }
 
 .stats {
-  border-style: solid;
-  border-color: black;
   width: 40%;
 }
 
-.shot-clock {
+.shot-clock-scoreboard {
+  text-align: center;
   border-style: solid;
   border-color: black;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   height: 49%;
+  font-family: 'Digital-7';
+  font-size: xx-large;
+}
+
+.shot-clock {
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 50%;
+
+  border-style: solid;
+  border-color: black;
+}
+
+.shot-clock-correct {
+  color: green;
+}
+
+.shot-clock-incorrect {
+  color: red;
+}
+
+.shot-clock-counter {
+  color: goldenrod;
+}
+
+.shot-clock-scoreboard h3 {
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.shot-clock p {
+  margin: 0;
 }
 
 .player-stats {
   border-style: solid;
-  border-color: black;
+  border-color: black; 
   height: 49%;
 }
 
