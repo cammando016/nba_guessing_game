@@ -85,10 +85,22 @@
   align-items: center;
 }
 
-.shot-clock {
+.stats {
   border-style: solid;
   border-color: black;
   width: 40%;
+}
+
+.shot-clock {
+  border-style: solid;
+  border-color: black;
+  height: 49%;
+}
+
+.player-stats {
+  border-style: solid;
+  border-color: black;
+  height: 49%;
 }
 
 .nba-scoreboard {

@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import Player from './player'
 import Guess from './recent-guess'
+import ShotClock from "./shotclock";
 
 let initialAnswers = [
     {
@@ -32,12 +33,10 @@ let initialAnswers = [
     }
 ]
 
-function Game () {
+function Game ({setCorrectCount, setIncorrectCount}) {
     const [guess, setGuess] = useState(0);
     const [randomPlayer, setRandomPlayer] = useState(Math.floor(Math.random()*10));
     const [answerHistory, setAnswerHistory] = useState(initialAnswers);
-
-    //let randomPlayer = Math.floor(Math.random() * 10);
 
     //Player guessing pool
     const playerDict = [
@@ -121,8 +120,11 @@ function Game () {
         let correctAnswer = playerDict[randomPlayer].teamName;
         let result;
 
-        //Check guess result
-        userGuess.toLowerCase() == correctAnswer.toLowerCase() ? result='C' : result='I';
+        //Check guess result & increment guess counter
+        userGuess.toLowerCase() == correctAnswer.toLowerCase() 
+            ? (result='C', setCorrectCount(prevCount => prevCount + 1))
+            : (result='I', setIncorrectCount(prevCount => prevCount + 1))
+        ;
 
         //Update answers array
         if (guess < 5) {

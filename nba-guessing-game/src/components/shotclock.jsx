@@ -1,9 +1,10 @@
 import React from "react";
 
-function ShotClock () {
+function ShotClock ({correctGuesses, incorrectGuesses, guessCount}) {
     return (
         <div className='shot-clock'>
-            <p>To be completed, shot clock scoreboard.</p>
+            <p>{correctGuesses} : {incorrectGuesses}</p>
+            <p>{guessCount}</p>
         </div>
     )
 }
