@@ -1,9 +1,8 @@
 import React from "react";
 import { useState } from "react";
 
-import Player from './player'
-import Guess from './recent-guess'
-import ShotClock from "./shotclock";
+import Player from './player';
+import Guess from './recent-guess';
 
 let initialAnswers = [
     {
