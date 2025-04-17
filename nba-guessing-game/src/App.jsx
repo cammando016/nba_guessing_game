@@ -18,12 +18,12 @@ function App() {
   const [correct, setCorrect] = useState(0);
   const [incorrect, setIncorrect] = useState(0);
   const [filteredPlayerData, setFilteredPlayerData] = useState([]);
-  const [randPlayerIndex, setRandPlayerIndex] = useState(Math.floor(Math.random()*722))
+  const [randPlayerIndex, setRandPlayerIndex] = useState(Math.floor(Math.random()*740))
 
+  //State update functions to pass into Game component
   const updateCorrectCount = (newCount) => setCorrect(newCount);
   const updateIncorrectCount = (newCount) => setIncorrect(newCount);
-
-  //const updateRandPlayerIndex = (newPlayer) => setRandomPlayerIndex(newPlayer);
+  const updateRandPlayerIndex = (newPlayer) => setRandPlayerIndex(newPlayer);
 
   useEffect(() => {
     async function fillPlayerDict() {
@@ -81,6 +81,9 @@ function App() {
           <Game 
             setCorrectCount={updateCorrectCount}
             setIncorrectCount={updateIncorrectCount}
+            setRandPlayerIndex={updateRandPlayerIndex}
+            randPlayerIndex={randPlayerIndex}
+            playersDict={filteredPlayerData}
           />
           <div className='stats'>
             <ShotClock 

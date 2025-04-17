@@ -1,14 +1,21 @@
 import React from "react";
-//import photo from '../assets/images/players/devin_booker.jpg'
 
-function Player({ name, photo, altText }) {
+function Player({ photo, playersDict, playerIndex }) {
+    const player = playersDict[playerIndex];
+
+    if (!player) {
+        return (
+            <div>Loading Player Info...</div>
+        );
+    }
+
     return (
         <>
             <div className="player-name">
-                <h3>{name}</h3>
+                <h3>{player.playerName}</h3>
             </div>
             <div className="player-photo-div">
-                <img className="player-photo" src={photo} alt={altText} />
+                <img className="player-photo" src={photo} alt={player.playerName} />
             </div>
         </>
     )
