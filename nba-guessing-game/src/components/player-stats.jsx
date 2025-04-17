@@ -3,12 +3,12 @@ import React from "react";
 function PlayerStats ({playerArray, playerIndex}) {
     return (
         <div className="player-stats">
-            <h3><em>Player</em> 2024/25 Statistics</h3>
-            <p>Points per game: <em>{playerArray[playerIndex].playerPpg}</em></p>
-            <p>Rebounds per game: <em>00.0</em></p>
-            <p>Assists per game: <em>00.0</em></p>
-            <p>Steals per game: <em>0.0</em></p>
-            <p>Blocks per game: <em>0.0</em></p>
+            <h3>{playerArray[playerIndex].playerName} 2024/25 Statistics</h3>
+            <p>Points per game: {playerArray[playerIndex].playerPpg}</p>
+            <p>Rebounds per game: {playerArray[playerIndex].playerRpg}</p>
+            <p>Assists per game: {playerArray[playerIndex].playerApg}</p>
+            <p>Steals per game: {playerArray[playerIndex].playerSpg}</p>
+            <p>Blocks per game: {playerArray[playerIndex].playerBpg}</p>
         </div>
     )
 }
