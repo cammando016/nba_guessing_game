@@ -23,7 +23,7 @@ function App() {
   //State update functions to pass into Game component
   const updateCorrectCount = (newCount) => setCorrect(newCount);
   const updateIncorrectCount = (newCount) => setIncorrect(newCount);
-  const updateRandPlayerIndex = (newPlayer) => setRandPlayerIndex(newPlayer);
+  const updateRandPlayerIndex = () => setRandPlayerIndex(Math.floor(Math.random()*740));
 
   useEffect(() => {
     async function fillPlayerDict() {

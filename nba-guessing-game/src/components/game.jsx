@@ -33,6 +33,16 @@ let initialAnswers = [
     }
 ]
 
+function clearAnswersArray (array) {
+    for(let i = 0; i < array.length; i++) {
+        array[i].enteredAnswer = ''
+        array[i].expectedAnswer = ''
+        array[i].answerResult = '-'
+    }
+
+    return array
+}
+
 function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlayerIndex, playersDict}) {
     const [guess, setGuess] = useState(0);
     const [answerHistory, setAnswerHistory] = useState(initialAnswers);
@@ -41,7 +51,6 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
     function submitGuess () {
         //Get user's entered and expected answers
         let userGuess = document.querySelector('#player-guess').value;
-        //let correctAnswer = playerDict[randomPlayer].teamName;
         let correctAnswer = playersDict[randPlayerIndex].playerTeam;
         let result;
 
@@ -86,9 +95,8 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
     //Reset game to no answer history and update to a new starting NBA player to guess
     function resetGame () {
         setGuess(0);
-        setAnswerHistory([]);
-
-        //setRandomPlayer(Math.floor(Math.random() * 10));
+        clearAnswersArray(initialAnswers);
+        setAnswerHistory(initialAnswers);
         setRandPlayerIndex();
     }
 
