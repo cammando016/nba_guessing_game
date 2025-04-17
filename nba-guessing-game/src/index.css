@@ -50,6 +50,10 @@
   width: 25px;
 }
 
+.guess-- {
+  display: none;
+}
+
 .guess-C {
   background-color: green;
 }
