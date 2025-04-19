@@ -39,13 +39,15 @@ function clearAnswersArray (array) {
         array[i].expectedAnswer = ''
         array[i].answerResult = '-'
     }
-
     return array
 }
 
 function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlayerIndex, playersDict}) {
     const [guess, setGuess] = useState(0);
     const [answerHistory, setAnswerHistory] = useState(initialAnswers);
+
+    //Empty array that will keep a record of all guessed players
+    const [guessedPlayers, setGuessedPlayers] = useState([]);
 
     //Check entered guess and update answer arrays with correct or incorrect result
     function submitGuess () {
@@ -59,6 +61,17 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
             ? (result='C', setCorrectCount(prevCount => prevCount + 1))
             : (result='I', setIncorrectCount(prevCount => prevCount + 1))
         ;
+
+        //Update guessedPlayers array to track which players guessed so far
+        setGuessedPlayers(
+            [
+                ...guessedPlayers,
+                {guessedIndex: playersDict[randPlayerIndex]}
+            ]
+        )
+
+        //Update player record from PlayersDict to show it has already been guessed
+        playersDict[randPlayerIndex].playerGuessedYet = true;
 
         //Update answers array
         if (guess < 5) {
@@ -89,12 +102,25 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
 
         //Update for next NBA player to guess
         setGuess(guess + 1);
-        setRandPlayerIndex();
+
+        let newIndex;
+        do {
+            newIndex = Math.floor(Math.random() * playersDict.length);
+        } 
+        while (playersDict[newIndex]?.playerGuessedYet);
+
+        setRandPlayerIndex(newIndex);
     }
 
-    //Reset game to no answer history and update to a new starting NBA player to guess
+    //Reset game to no answer history
+    //Use guessedPlayers array to set any players guessed in round back to playerGuessedYet = false
+    //Update to a new starting NBA player to guess
     function resetGame () {
         setGuess(0);
+        guessedPlayers.forEach(player => {
+            playersDict[player.guessedIndex].playerGuessedYet = false;
+        });
+        setGuessedPlayers([]);
         clearAnswersArray(initialAnswers);
         setAnswerHistory(initialAnswers);
         setRandPlayerIndex();
