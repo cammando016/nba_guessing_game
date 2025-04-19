@@ -18,13 +18,28 @@ function App() {
   const [correct, setCorrect] = useState(0);
   const [incorrect, setIncorrect] = useState(0);
   const [filteredPlayerData, setFilteredPlayerData] = useState([]);
-  const [randPlayerIndex, setRandPlayerIndex] = useState(Math.floor(Math.random()*740))
+  const [randPlayerIndex, setRandPlayerIndex] = useState(Math.floor(Math.random()*filteredPlayerData.length))
 
   //State update functions to pass into Game component
   const updateCorrectCount = (newCount) => setCorrect(newCount);
   const updateIncorrectCount = (newCount) => setIncorrect(newCount);
-  const updateRandPlayerIndex = () => setRandPlayerIndex(Math.floor(Math.random()*740));
+  const updateRandPlayerIndex = () => setRandPlayerIndex(Math.floor(Math.random()*filteredPlayerData.length));
 
+  //Function to remove record of old team for players traded mid season
+  function removeDupePlayers(playersArray) {
+    const uniquePlayers = {};
+
+    playersArray.forEach(player => {
+      const name = player.playerName;
+      if(!uniquePlayers[name] || player.playerId > uniquePlayers[name].playerId) {
+        uniquePlayers[name] = player;
+      }
+    });
+
+    return Object.values(uniquePlayers);
+  }
+
+  //Function to collect list of player data (team, stats, ID)
   useEffect(() => {
     async function fillPlayerDict() {
       try {
@@ -36,11 +51,13 @@ function App() {
         console.log('Player data collected successfully.')
         console.log(allPlayerData[0]);
         
-        const filteredPlayerData = allPlayerData.map((player) => {
+        //Pull required data out of API response
+        const dupeFilteredPlayerData = allPlayerData.map((player) => {
           return {
             playerId: player.id,
             playerName: player.playerName,
             playerTeam: player.team,
+            playerGuessedYet: false,
             playerPpg: Math.round((player.points/player.games)*100)/100,
             playerRpg: Math.round((player.totalRb/player.games)*100)/100,
             playerApg: Math.round((player.assists/player.games)*100)/100,
@@ -49,6 +66,7 @@ function App() {
           }
         })
 
+        const filteredPlayerData = removeDupePlayers(dupeFilteredPlayerData);
         setFilteredPlayerData(filteredPlayerData);
         console.log(filteredPlayerData);
       } 
