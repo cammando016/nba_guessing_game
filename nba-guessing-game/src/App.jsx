@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import Game from './components/game.jsx'
 import Background from './components/background.jsx'
 import ShotClock from './components/shotclock.jsx'
-import Scoreboard from './components/nbascoreboard.jsx'
+import GuessHistory from './components/full-guess-history.jsx'
 import PlayerStats from './components/player-stats.jsx'
 
 //Image imports
@@ -96,34 +96,38 @@ function App() {
         </div>
 
         <div className='main-content'>
-          <Game 
-            setCorrectCount={updateCorrectCount}
-            setIncorrectCount={updateIncorrectCount}
-            setRandPlayerIndex={updateRandPlayerIndex}
-            randPlayerIndex={randPlayerIndex}
-            playersDict={filteredPlayerData}
-          />
-          <div className='stats'>
+          <div className='game-player-content'>
+            <Game 
+              setCorrectCount={updateCorrectCount}
+              setIncorrectCount={updateIncorrectCount}
+              setRandPlayerIndex={updateRandPlayerIndex}
+              randPlayerIndex={randPlayerIndex}
+              playersDict={filteredPlayerData}
+            />
+
+            {filteredPlayerData.length > 0 ? 
+              (
+                <PlayerStats 
+                  playerArray={filteredPlayerData}
+                  playerIndex={randPlayerIndex}
+                />
+              ) :
+                <div><h3>Loading Stats</h3></div>
+            }
+          </div>
+
+          <div className='game-scoring-content'>
             <ShotClock 
               correctGuesses={correct}
               incorrectGuesses={incorrect}
               guessCount={correct + incorrect}
             />
 
-            {filteredPlayerData.length > 0 ? 
-            (
-              <PlayerStats 
-                playerArray={filteredPlayerData}
-                playerIndex={randPlayerIndex}
-              />
-            ) :
-              <div><h3>Loading Stats</h3></div>
-            }
+            <GuessHistory />
 
           </div>
         </div>
 
-        <Scoreboard />
       </div>
 
       <Background 

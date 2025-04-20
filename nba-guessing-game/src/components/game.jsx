@@ -66,7 +66,7 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
         setGuessedPlayers(
             [
                 ...guessedPlayers,
-                {guessedIndex: playersDict[randPlayerIndex]}
+                {guessedIndex: randPlayerIndex}
             ]
         )
 

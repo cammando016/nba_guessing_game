@@ -68,7 +68,7 @@
   height: 65%;
 }
 
-.game-content {
+.game-player-content {
   border-style: solid;
   border-color: black;
   width: 60%;
@@ -76,6 +76,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 79vh;
 }
 
 .player-guesser {
@@ -84,7 +85,7 @@
   align-items: center;
 }
 
-.stats {
+.game-scoring-content {
   width: 40%;
 }
 
@@ -137,9 +138,7 @@
 }
 
 .player-stats {
-  border-style: solid;
-  border-color: black; 
-  height: 49%;
+  /*height: 49%;*/
 }
 
 .nba-scoreboard {
