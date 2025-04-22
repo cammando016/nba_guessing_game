@@ -177,7 +177,7 @@ function App() {
   //State update functions to pass into Game component
   const updateCorrectCount = (newCount) => setCorrect(newCount);
   const updateIncorrectCount = (newCount) => setIncorrect(newCount);
-  const updateRandPlayerIndex = () => setRandPlayerIndex(Math.floor(Math.random()*filteredPlayerData.length));
+  const updateRandPlayerIndex = (array) => setRandPlayerIndex(Math.floor(Math.random()*array.length));
   const updateGuessResultHistory = (newGuess) => (
     setGuessResultHistory(prev => [
       ...prev, 
@@ -208,6 +208,7 @@ function App() {
     return Object.values(uniquePlayers);
   }
 
+  //Function to replace the team code returned from API with the name of the team
   function checkTeamCode(teamCode) {
     const matchTeamCode = teamNames.find(team => (
       team.teamCode === teamCode
@@ -234,7 +235,6 @@ function App() {
             playerId: player.id,
             playerName: player.playerName,
             playerTeam: checkTeamCode(player.team),
-            playerGuessedYet: false,
             playerPpg: Math.round((player.points/player.games)*100)/100,
             playerRpg: Math.round((player.totalRb/player.games)*100)/100,
             playerApg: Math.round((player.assists/player.games)*100)/100,

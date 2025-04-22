@@ -45,9 +45,7 @@ function clearAnswersArray (array) {
 function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlayerIndex, playersDict, setGuessResultHistory, clearGuessHistory}) {
     const [guess, setGuess] = useState(0);
     const [answerHistory, setAnswerHistory] = useState(initialAnswers);
-
-    //Empty array that will keep a record of all guessed players
-    const [guessedPlayers, setGuessedPlayers] = useState([]);
+    const [removeablePlayerDict, setRemoveablePlayerDict] = useState(playersDict);
 
     //Check entered guess and update answer arrays with correct or incorrect result
     function submitGuess () {
@@ -62,19 +60,8 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
             : (result='I', setIncorrectCount(prevCount => prevCount + 1))
         ;
 
-        //Update guessedPlayers array to track which players guessed so far
-        setGuessedPlayers(
-            [
-                ...guessedPlayers,
-                {guessedIndex: randPlayerIndex}
-            ]
-        )
-
         //Update guessResultHistory array to track history of guess results
         setGuessResultHistory(playersDict[randPlayerIndex]);
-
-        //Update player record from PlayersDict to show it has already been guessed
-        playersDict[randPlayerIndex].playerGuessedYet = true;
 
         //Update answers array
         if (guess < 5) {
@@ -103,16 +90,18 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
             ]);
         }
 
+        //Get playerID of guessed player to remove from removeablePlayerDict
+        const playerIdToRemove = removeablePlayerDict[randPlayerIndex]?.playerId;
+
         //Update for next NBA player to guess
         setGuess(guess + 1);
 
-        let newIndex;
-        do {
-            newIndex = Math.floor(Math.random() * playersDict.length);
-        } 
-        while (playersDict[newIndex]?.playerGuessedYet);
-
-        setRandPlayerIndex(newIndex);
+        //Remove the guessed player from the player guessing pool
+        const updatedPlayerDict = removeablePlayerDict.filter(player => (
+            player.playerId !== playerIdToRemove
+        ))
+        setRemoveablePlayerDict(updatedPlayerDict);
+        setRandPlayerIndex(updatedPlayerDict);
     }
 
     //Reset game to no answer history
@@ -120,18 +109,21 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
     //Update to a new starting NBA player to guess
     function resetGame () {
         setGuess(0);
-        guessedPlayers.forEach(player => {
-            playersDict[player.guessedIndex].playerGuessedYet = false;
-        });
-        setGuessedPlayers([]);
         clearAnswersArray(initialAnswers);
         setAnswerHistory(initialAnswers);
         clearGuessHistory();
-        setRandPlayerIndex();
+        setRemoveablePlayerDict(playersDict);
+        setRandPlayerIndex(playersDict);
+    }
+
+    function startGame () {
+        setRemoveablePlayerDict(playersDict);
+        setRandPlayerIndex(playersDict);
     }
 
     return (
         <div className='game-content'>
+            <button onClick={startGame}>Start Game</button>
             <div className='player-guesser'>
               <Player 
                 photo={photoSrc}
@@ -151,12 +143,15 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
 
             {/* On screen feedback for last 5 guesses */}
             <h4>Last 5 Guesses:</h4>
-            <div className='guesses'>
-              <Guess correctResult={answerHistory.at(-1).answerResult}/>
-              <Guess correctResult={answerHistory.at(-2).answerResult}/>
-              <Guess correctResult={answerHistory.at(-3).answerResult}/>
-              <Guess correctResult={answerHistory.at(-4).answerResult}/>
-              <Guess correctResult={answerHistory.at(-5).answerResult}/>
+
+            <div className="guesses">
+                {answerHistory
+                    .slice(-5)
+                    .reverse()
+                    .map((answer, index) => (
+                        <Guess key={index} correctResult={answer.answerResult} />
+                    ))
+                }
             </div>
           </div>
     )
