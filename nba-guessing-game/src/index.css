@@ -65,7 +65,7 @@
 .main-content {
   display: flex;
   flex-direction: row;
-  height: 65%;
+  height: 79vh;
 }
 
 .game-player-content {
@@ -76,7 +76,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 79vh;
 }
 
 .player-guesser {
@@ -98,13 +97,13 @@
   flex-direction: column;
   align-items: center;
 
-  height: 49%;
+  height: 40%;
   font-family: 'Digital-7';
   font-size: xx-large;
 }
 
 .shot-clock {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -137,14 +136,11 @@
   margin: 0;
 }
 
-.player-stats {
-  /*height: 49%;*/
-}
-
-.nba-scoreboard {
+.full-guess-history {
   border-style: solid;
   border-color: black;
-  height: 15%;
+  height: 60%;
+  overflow: scroll;
 }
 
 

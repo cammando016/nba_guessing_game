@@ -19,11 +19,27 @@ function App() {
   const [incorrect, setIncorrect] = useState(0);
   const [filteredPlayerData, setFilteredPlayerData] = useState([]);
   const [randPlayerIndex, setRandPlayerIndex] = useState(Math.floor(Math.random()*filteredPlayerData.length))
+  const [guessResultHistory, setGuessResultHistory] = useState([]);
 
   //State update functions to pass into Game component
   const updateCorrectCount = (newCount) => setCorrect(newCount);
   const updateIncorrectCount = (newCount) => setIncorrect(newCount);
   const updateRandPlayerIndex = () => setRandPlayerIndex(Math.floor(Math.random()*filteredPlayerData.length));
+  const updateGuessResultHistory = (newGuess) => (
+    setGuessResultHistory(prev => [
+      ...prev, 
+      {
+        playerId: newGuess.playerId,
+        playerName: newGuess.playerName,
+        guessedTeam: document.querySelector('#player-guess').value,
+        correctTeam: newGuess.playerTeam
+      }
+    ])
+  );
+
+  const clearGuessResultHistory = () => (
+    setGuessResultHistory([])
+  );
 
   //Function to remove record of old team for players traded mid season
   function removeDupePlayers(playersArray) {
@@ -103,6 +119,8 @@ function App() {
               setRandPlayerIndex={updateRandPlayerIndex}
               randPlayerIndex={randPlayerIndex}
               playersDict={filteredPlayerData}
+              setGuessResultHistory={updateGuessResultHistory}
+              clearGuessHistory={clearGuessResultHistory}
             />
 
             {filteredPlayerData.length > 0 ? 
@@ -123,7 +141,9 @@ function App() {
               guessCount={correct + incorrect}
             />
 
-            <GuessHistory />
+            <GuessHistory 
+              guessHistory={guessResultHistory}
+            />
 
           </div>
         </div>

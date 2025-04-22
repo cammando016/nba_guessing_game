@@ -42,7 +42,7 @@ function clearAnswersArray (array) {
     return array
 }
 
-function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlayerIndex, playersDict}) {
+function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlayerIndex, playersDict, setGuessResultHistory, clearGuessHistory}) {
     const [guess, setGuess] = useState(0);
     const [answerHistory, setAnswerHistory] = useState(initialAnswers);
 
@@ -69,6 +69,9 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
                 {guessedIndex: randPlayerIndex}
             ]
         )
+
+        //Update guessResultHistory array to track history of guess results
+        setGuessResultHistory(playersDict[randPlayerIndex]);
 
         //Update player record from PlayersDict to show it has already been guessed
         playersDict[randPlayerIndex].playerGuessedYet = true;
@@ -123,6 +126,7 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
         setGuessedPlayers([]);
         clearAnswersArray(initialAnswers);
         setAnswerHistory(initialAnswers);
+        clearGuessHistory();
         setRandPlayerIndex();
     }
 
