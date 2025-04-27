@@ -1,6 +1,6 @@
 import React from "react";
 
-function Player({ photo, playersDict, playerIndex }) {
+function Player({ playersDict, playerIndex }) {
     const player = playersDict[playerIndex];
 
     if (!player) {
@@ -15,7 +15,8 @@ function Player({ photo, playersDict, playerIndex }) {
                 <h3>{player.playerName}</h3>
             </div>
             <div className="player-photo-div">
-                <img className="player-photo" src={photo} alt={player.playerName} />
+                {console.log(player)}
+                <img className="player-photo" src={player.playerHeadshotSrc} alt={player.playerId} />
             </div>
         </>
     )

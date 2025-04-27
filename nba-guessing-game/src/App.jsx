@@ -217,6 +217,13 @@ function App() {
     return matchTeamCode ? matchTeamCode.teamName : teamCode;
   }
 
+  //Function to get player image source from /public/player-image
+  function getPlayerImageFile(playerId) {
+    const imagePath = `/player-images/${playerId}.png`;
+
+    return imagePath;
+  }
+
   //Function to collect list of player data (team, stats, ID)
   useEffect(() => {
     async function fillPlayerDict() {
@@ -231,16 +238,23 @@ function App() {
         
         //Pull required data out of API response
         const dupeFilteredPlayerData = allPlayerData.map((player) => {
-          return {
-            playerId: player.id,
-            playerName: player.playerName,
-            playerTeam: checkTeamCode(player.team),
-            playerPpg: Math.round((player.points/player.games)*100)/100,
-            playerRpg: Math.round((player.totalRb/player.games)*100)/100,
-            playerApg: Math.round((player.assists/player.games)*100)/100,
-            playerSpg: Math.round((player.steals/player.games)*100)/100,
-            playerBpg: Math.round((player.blocks/player.games)*100)/100
-          }
+          const fs = require('fs');
+          const filePath = `/player-images/${playerId}.png`
+          //const imgSrc = getPlayerImageFile(player.id)
+          
+          if (fs.existsSync(filePath)) {
+            return {
+              playerId: player.id,
+              playerName: player.playerName,
+              playerTeam: checkTeamCode(player.team),
+              playerPpg: Math.round((player.points/player.games)*100)/100,
+              playerRpg: Math.round((player.totalRb/player.games)*100)/100,
+              playerApg: Math.round((player.assists/player.games)*100)/100,
+              playerSpg: Math.round((player.steals/player.games)*100)/100,
+              playerBpg: Math.round((player.blocks/player.games)*100)/100,
+              playerHeadshotSrc: filePath
+            }
+          } 
         })
 
         const filteredPlayerData = removeDupePlayers(dupeFilteredPlayerData);

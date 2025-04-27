@@ -84,6 +84,19 @@
   align-items: center;
 }
 
+.player-photo-div {
+  height: 160px;         /* or 50% if you want to be relative to something */
+  overflow: hidden;
+  display: flex;
+  justify-content: center; /* optional: centers image horizontally */
+  align-items: flex-start; /* ensures image aligns to the top */
+}
+
+.player-photo {
+  height: auto;
+  width: 100%;           /* or a fixed width if needed */
+}
+
 .game-scoring-content {
   width: 40%;
 }
