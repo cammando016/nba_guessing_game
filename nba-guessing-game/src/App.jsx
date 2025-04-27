@@ -36,7 +36,9 @@ function App() {
       }
     ])
   );
+  const clearGuessResultHistory = () => setGuessResultHistory([]);
 
+  //Read player data returned from generateFilteredPlayers.js
   useEffect(() => {
     async function fetchFilteredPlayers() {
       try {

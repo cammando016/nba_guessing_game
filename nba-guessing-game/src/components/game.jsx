@@ -3,7 +3,8 @@ import { useState } from "react";
 
 import Player from './player';
 import Guess from './recent-guess';
-import photoSrc from '../assets/images/players/devin_booker.jpg'
+import GuessInput from './guess-input'
+import PlayerStats from './player-stats'
 
 let initialAnswers = [
     {
@@ -50,7 +51,7 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
     //Check entered guess and update answer arrays with correct or incorrect result
     function submitGuess () {
         //Get user's entered and expected answers
-        let userGuess = document.querySelector('#player-guess').value;
+        let userGuess = document.querySelector("#player-guess").value;
         let correctAnswer = playersDict[randPlayerIndex].playerTeam;
         let result;
 
@@ -63,7 +64,7 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
         //Update guessResultHistory array to track history of guess results
         setGuessResultHistory(playersDict[randPlayerIndex]);
 
-        //Update answers array
+        //Update answers array for displaying last 5 guesses
         if (guess < 5) {
             const newAnswerHistory = answerHistory.map ((i, j) => {
                 if (j === guess) {
@@ -105,7 +106,6 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
     }
 
     //Reset game to no answer history
-    //Use guessedPlayers array to set any players guessed in round back to playerGuessedYet = false
     //Update to a new starting NBA player to guess
     function resetGame () {
         setGuess(0);
@@ -123,26 +123,23 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
 
     return (
         <div className='game-content'>
-            <button onClick={startGame}>Start Game</button>
             <div className='player-guesser'>
-              <Player 
-                photo={photoSrc}
+              <Player
                 playersDict={playersDict}
                 playerIndex={randPlayerIndex}
               />
 
-              <div id='guess-input'>
-                <input id="player-guess" type='text' placeholder="Guess the player's team"></input>
-              </div>
+              <GuessInput />
 
               <div id='game-interact-buttons'>
+                <button onClick={startGame}>Start Game</button>
                 <button type='submit' onClick={submitGuess}>Submit Guess</button>
                 <button onClick={resetGame}>Reset Game</button>
               </div>
             </div>
 
             {/* On screen feedback for last 5 guesses */}
-            <h4>Last 5 Guesses:</h4>
+            <h4 id="5-guesses">Last 5 Guesses:</h4>
 
             <div className="guesses">
                 {answerHistory
