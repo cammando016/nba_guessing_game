@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 
 //List of NBA Teams
@@ -35,18 +36,33 @@ const teamNames = [
     "Washington Wizards",
 ];
 
-function GuessInput() {
-    const [guessInput, setGuessInput] = useState("");
+function GuessInput({ guessInput, setGuessInput }) {
     const [suggestedTeams, setSuggestedTeams] = useState([]);
+    const [debouncedInput, setDebouncedInput] = useState(guessInput);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedInput(guessInput);
+        }, 200);
+
+        return () => clearTimeout(timer);
+    }, [guessInput]);
+
+    useEffect(() => {
+        if (debouncedInput !== "") {
+            const matchingTeams = teamNames.filter(team => {
+                return team.toLowerCase().includes(debouncedInput.toLowerCase());
+            })
+            setSuggestedTeams(matchingTeams);
+        }
+        else {
+            setSuggestedTeams([]);
+        }
+    }, [debouncedInput]);
 
     function handleInputChange(input) {
         const value = input.target.value;
         setGuessInput(value);
-
-        const matchingTeams = teamNames.filter(team => {
-            return team.toLowerCase().includes(value.toLowerCase())
-        });
-        setSuggestedTeams(matchingTeams);
     }
 
     function handleSuggestionClick(suggestion) {
@@ -64,7 +80,7 @@ function GuessInput() {
                 placeholder = "Guess this player's team"
             />
             {
-                (suggestedTeams.length > 0 && guessInput !== "") && (
+                (suggestedTeams.length > 1 || (suggestedTeams.length === 1 && suggestedTeams[0].toLowerCase() !== guessInput.toLowerCase())) && (
                     <ul className="suggested-teams">
                         {suggestedTeams.map(team => (
                             <li className="suggested-team" key={team} onClick={() => handleSuggestionClick(team)}>{team}</li>

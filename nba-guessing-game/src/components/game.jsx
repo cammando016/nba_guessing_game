@@ -48,10 +48,15 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
     const [answerHistory, setAnswerHistory] = useState(initialAnswers);
     const [removeablePlayerDict, setRemoveablePlayerDict] = useState(playersDict);
 
+    //State for guess field input 
+    const [guessInput, setGuessInput] = useState("");
+
+    const updateGuessInput = (newInput) => setGuessInput(newInput);
+
     //Check entered guess and update answer arrays with correct or incorrect result
     function submitGuess () {
         //Get user's entered and expected answers
-        let userGuess = document.querySelector("#player-guess").value;
+        let userGuess = guessInput;
         let correctAnswer = playersDict[randPlayerIndex].playerTeam;
         let result;
 
@@ -63,6 +68,9 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
 
         //Update guessResultHistory array to track history of guess results
         setGuessResultHistory(playersDict[randPlayerIndex]);
+
+        //Clear guess input field after guess
+        setGuessInput("");
 
         //Update answers array for displaying last 5 guesses
         if (guess < 5) {
@@ -114,6 +122,7 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
         clearGuessHistory();
         setRemoveablePlayerDict(playersDict);
         setRandPlayerIndex(playersDict);
+        setGuessInput("");
     }
 
     function startGame () {
@@ -129,7 +138,10 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
                 playerIndex={randPlayerIndex}
               />
 
-              <GuessInput />
+              <GuessInput 
+                guessInput={guessInput}
+                setGuessInput={updateGuessInput}
+              />
 
               <div id='game-interact-buttons'>
                 <button onClick={startGame}>Start Game</button>
