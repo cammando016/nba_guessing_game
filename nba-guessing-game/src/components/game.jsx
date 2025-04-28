@@ -148,6 +148,17 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
                 <button type='submit' onClick={submitGuess}>Submit Guess</button>
                 <button onClick={resetGame}>Reset Game</button>
               </div>
+
+              {
+                playersDict.length > 0 ? (
+                    <PlayerStats 
+                        playerArray={playersDict}
+                        playerIndex={randPlayerIndex}
+                    />
+                ):
+                <div><h3>Loading Stats</h3></div>
+              }
+              
             </div>
 
             {/* On screen feedback for last 5 guesses */}

@@ -84,16 +84,6 @@ function App() {
               setGuessResultHistory={updateGuessResultHistory}
               clearGuessHistory={clearGuessResultHistory}
             />
-
-            {filteredPlayerData.length > 0 ? 
-              (
-                <PlayerStats 
-                  playerArray={filteredPlayerData}
-                  playerIndex={randPlayerIndex}
-                />
-              ) :
-                <div><h3>Loading Stats</h3></div>
-            }
           </div>
 
           <div className='game-scoring-content'>
