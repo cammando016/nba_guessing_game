@@ -193,6 +193,9 @@
   overflow: scroll;
 }
 
+.hide-homepage .hide-startscreen {
+  display: hidden;
+}
 
 /* Initial Vite project styling */
 :root {
