@@ -12,7 +12,7 @@ import gameLogo from '../assets/images/displays/banner.jpg'
 import LeftCourt from '../assets/images/displays/court.jpg'
 import RightCourt from '../assets/images/displays/court-right.jpg'
 
-function Homepage() {
+function Homepage({}) {
   const [correct, setCorrect] = useState(0);
   const [incorrect, setIncorrect] = useState(0);
   const [filteredPlayerData, setFilteredPlayerData] = useState([]);
@@ -55,7 +55,7 @@ function Homepage() {
   }, []);
 
   return (
-    <div id="homepage" className = 'full-screen hide-homepage'>
+    <div id="homepage" className = 'full-screen'>
       <Background 
         className='left' 
         src={LeftCourt} 

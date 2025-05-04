@@ -126,8 +126,8 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
     }
 
     function startGame () {
-        setRemoveablePlayerDict(playersDict);
-        setRandPlayerIndex(playersDict);
+        // setRemoveablePlayerDict(playersDict);
+        // setRandPlayerIndex(playersDict);
     }
 
     return (
@@ -162,7 +162,7 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
             </div>
 
             {/* On screen feedback for last 5 guesses */}
-            <h4 id="5-guesses">Last 5 Guesses:</h4>
+            <h4 id="5-guesses">Recent Guesses:</h4>
 
             <div className="guesses">
                 {answerHistory

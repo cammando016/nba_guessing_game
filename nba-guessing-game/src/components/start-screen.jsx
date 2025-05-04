@@ -9,24 +9,6 @@ function StartScreen({submitClicked}) {
 
             <div id="start-game-config">
                 <form id="game-config">
-                    <fieldset id="player-count">
-                        <legend>Select Player Count</legend>
-                        <input type="radio" id="player_count_one" name="player_count" value="One Player" defaultChecked/>
-                        <label htmlFor="player_count_one">1 Player</label>
-
-                        <input type="radio" id="player_count_two" name="player_count" value="Two Player" />
-                        <label htmlFor="player_count_two">2 Players</label>
-                    </fieldset>
-
-                    <fieldset id="player-names">
-                        <legend>Enter Player Names</legend>
-                        <label htmlFor="player_one_name">P1 Name:</label>
-                        <input type="text" id="player_one_name" name="player_one_name"/>
-
-                        <label htmlFor="player_two_name">P2 Name:</label>
-                        <input type="text" id="player_two_name" name="player_two_name"/>
-                    </fieldset>
-
                     <fieldset id="game-mode">
                         <legend>Select Game Mode</legend>
                         <input type="radio" id="shootout_mode" name="game_mode" value="Shootout" defaultChecked/>

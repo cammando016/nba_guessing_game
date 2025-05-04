@@ -193,10 +193,6 @@
   overflow: scroll;
 }
 
-.hide-homepage .hide-startscreen {
-  display: hidden;
-}
-
 /* Initial Vite project styling */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

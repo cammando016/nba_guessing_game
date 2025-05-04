@@ -1,20 +1,21 @@
 import './App.css'
 import React from "react";
+import { useState } from 'react';
 
 //Component imports
 import StartScreen from './components/start-screen';
 import Homepage from './components/homepage';
 
-function handleClick() {
-  console.log("Click start ran");
-}
-
 function App() {
+  const [gameStarted, setGameStarted] = useState(false);
+
+  function handleClick() {
+    setGameStarted(true);
+    console.log("Click start ran");
+  }
+
   return (
-    <div>
-      <StartScreen submitClicked={handleClick}/>
-      <Homepage />
-    </div>
+    gameStarted ? <Homepage /> : <StartScreen submitClicked={handleClick}/> 
   )
 }
 
