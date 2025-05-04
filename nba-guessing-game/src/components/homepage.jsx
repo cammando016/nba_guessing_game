@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 //Component imports
 import Game from "./game";
@@ -12,17 +12,14 @@ import gameLogo from '../assets/images/displays/banner.jpg'
 import LeftCourt from '../assets/images/displays/court.jpg'
 import RightCourt from '../assets/images/displays/court-right.jpg'
 
-function Homepage({}) {
+function Homepage({updateRandPlayerIndex, randPlayerIndex, playersDict}) {
   const [correct, setCorrect] = useState(0);
   const [incorrect, setIncorrect] = useState(0);
-  const [filteredPlayerData, setFilteredPlayerData] = useState([]);
-  const [randPlayerIndex, setRandPlayerIndex] = useState(Math.floor(Math.random()*filteredPlayerData.length))
   const [guessResultHistory, setGuessResultHistory] = useState([]);
 
   //State update functions to pass into Game component
   const updateCorrectCount = (newCount) => setCorrect(newCount);
   const updateIncorrectCount = (newCount) => setIncorrect(newCount);
-  const updateRandPlayerIndex = (array) => setRandPlayerIndex(Math.floor(Math.random()*array.length));
   const updateGuessResultHistory = (newGuess) => (
     setGuessResultHistory(prev => [
       ...prev, 
@@ -35,24 +32,6 @@ function Homepage({}) {
     ])
   );
   const clearGuessResultHistory = () => setGuessResultHistory([]);
-
-  //Read player data returned from generateFilteredPlayers.js
-  useEffect(() => {
-    async function fetchFilteredPlayers() {
-      try {
-        const response = await fetch("/filtered-players.json");
-        const data = await response.json();
-
-        setFilteredPlayerData(data);
-        setRandPlayerIndex(Math.floor(Math.random() * data.length));
-      }
-      catch (err) {
-        console.error("Failed to load filtered players. Error: ", err)
-      }
-    }
-
-    fetchFilteredPlayers();
-  }, []);
 
   return (
     <div id="homepage" className = 'full-screen'>
@@ -78,7 +57,7 @@ function Homepage({}) {
               setIncorrectCount={updateIncorrectCount}
               setRandPlayerIndex={updateRandPlayerIndex}
               randPlayerIndex={randPlayerIndex}
-              playersDict={filteredPlayerData}
+              playersDict={playersDict}
               setGuessResultHistory={updateGuessResultHistory}
               clearGuessHistory={clearGuessResultHistory}
             />
