@@ -7,45 +7,9 @@ import GuessInput from './guess-input'
 import PlayerStats from './player-stats'
 import Gameover from './game-over'
 
-let initialAnswers = [
-    {
-        enteredAnswer: '',
-        expectedAnswer: '',
-        answerResult: '-'
-    },
-    {
-        enteredAnswer: '',
-        expectedAnswer: '',
-        answerResult: '-'
-    },
-    {
-        enteredAnswer: '',
-        expectedAnswer: '',
-        answerResult: '-'
-    },
-    {
-        enteredAnswer: '',
-        expectedAnswer: '',
-        answerResult: '-'
-    },
-    {
-        enteredAnswer: '',
-        expectedAnswer: '',
-        answerResult: '-'
-    }
-]
-
-function clearAnswersArray () {
-    return initialAnswers.map(() => ({
-        enteredAnswer: '',
-        expectedAnswer: '',
-        answerResult: '-'
-    }));
-}
-
 function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlayerIndex, playersDict, setGuessResultHistory, clearGuessHistory, gameMode, foulLimit, shotLimit, falsifyGameStarted}) {
     const [guess, setGuess] = useState(0);
-    const [answerHistory, setAnswerHistory] = useState(initialAnswers);
+    const [answerHistory, setAnswerHistory] = useState(() => clearAnswersArray());
     const [removeablePlayerDict, setRemoveablePlayerDict] = useState(playersDict);
     const [gameOver, setGameOver] = useState(false);
 
@@ -56,6 +20,14 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
     const falsifyGameOver = () => setGameOver(false);
 
     const restartGame = () => resetGame();
+
+    function clearAnswersArray () {
+        return Array.from({length: 5}, () => ({
+            enteredAnswer: '',
+            expectedAnswer: '',
+            answerResult: '-'
+        }));
+    }
 
     //Check entered guess and update answer arrays with correct or incorrect result
     function submitGuess () {
@@ -121,6 +93,8 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
     //Update to a new starting NBA player to guess
     function resetGame () {
         setGuess(0);
+        setCorrectCount(0);
+        setIncorrectCount(0);
         setAnswerHistory(clearAnswersArray());
         clearGuessHistory();
         setRemoveablePlayerDict(playersDict);
@@ -130,6 +104,11 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
 
     function endGame() {
         setGameOver(true);
+    }
+
+    function changeGameSettings() {
+        resetGame();
+        falsifyGameStarted();
     }
 
     function checkGameOver(mode) {
@@ -172,8 +151,6 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
 
                 <div id='game-interact-buttons'>
                     <button type='submit' onClick={submitGuess}>Submit Guess</button>
-                    <button onClick={resetGame}>Reset Game</button>
-                    <button onClick={endGame}>End Game</button>
                 </div>
 
                 {
@@ -199,6 +176,12 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
                             <Guess key={index} correctResult={answer.answerResult} />
                         ))
                     }
+                </div>
+
+                <div>
+                    <button onClick={resetGame}>Restart Game</button>
+                    <button onClick={endGame}>End Game</button>
+                    <button onClick={changeGameSettings}>Change Mode</button>
                 </div>
             </div>
         ) :
