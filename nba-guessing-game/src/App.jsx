@@ -16,6 +16,7 @@ function App() {
   const [randPlayerIndex, setRandPlayerIndex] = useState(0);
 
   const updateRandPlayerIndex = (array) => setRandPlayerIndex(Math.floor(Math.random()*array.length));
+  const falsifyGameStarted = () => setGameStarted(false);
 
   //Read player data returned from generateFilteredPlayers.js
   useEffect(() => {
@@ -52,6 +53,7 @@ function App() {
         gameMode={gameMode}
         shotLimit={shotLimit}
         foulLimit={foulLimit}
+        falsifyGameStarted={falsifyGameStarted}
       /> 
       : 
       <StartScreen 

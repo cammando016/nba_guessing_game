@@ -5,6 +5,7 @@ import Player from './player';
 import Guess from './recent-guess';
 import GuessInput from './guess-input'
 import PlayerStats from './player-stats'
+import Gameover from './game-over'
 
 let initialAnswers = [
     {
@@ -43,15 +44,19 @@ function clearAnswersArray (array) {
     return array
 }
 
-function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlayerIndex, playersDict, setGuessResultHistory, clearGuessHistory, gameMode, foulLimit, shotLimit}) {
+function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlayerIndex, playersDict, setGuessResultHistory, clearGuessHistory, gameMode, foulLimit, shotLimit, falsifyGameStarted}) {
     const [guess, setGuess] = useState(0);
     const [answerHistory, setAnswerHistory] = useState(initialAnswers);
     const [removeablePlayerDict, setRemoveablePlayerDict] = useState(playersDict);
+    const [gameOver, setGameOver] = useState(false);
 
     //State for guess field input 
     const [guessInput, setGuessInput] = useState("");
 
     const updateGuessInput = (newInput) => setGuessInput(newInput);
+    const falsifyGameOver = () => setGameOver(false);
+
+    const restartGame = () => resetGame();
 
     //Check entered guess and update answer arrays with correct or incorrect result
     function submitGuess () {
@@ -125,55 +130,65 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
         setGuessInput("");
     }
 
-    function startGame () {
-        // setRemoveablePlayerDict(playersDict);
-        // setRandPlayerIndex(playersDict);
+    function endGame() {
+        setGameOver(true);
     }
 
     return (
-        <div className='game-content'>
-            <div className='player-guesser'>
-              <Player
-                playersDict={playersDict}
-                playerIndex={randPlayerIndex}
-              />
+        !gameOver ? (
+            <div className='game-content'>
+                <div className='player-guesser'>
+                <Player
+                    playersDict={playersDict}
+                    playerIndex={randPlayerIndex}
+                />
 
-              <GuessInput 
-                guessInput={guessInput}
-                setGuessInput={updateGuessInput}
-              />
+                <GuessInput 
+                    guessInput={guessInput}
+                    setGuessInput={updateGuessInput}
+                />
 
-              <div id='game-interact-buttons'>
-                <button onClick={startGame}>Start Game</button>
-                <button type='submit' onClick={submitGuess}>Submit Guess</button>
-                <button onClick={resetGame}>Reset Game</button>
-              </div>
+                <div id='game-interact-buttons'>
+                    <button type='submit' onClick={submitGuess}>Submit Guess</button>
+                    <button onClick={resetGame}>Reset Game</button>
+                    <button onClick={endGame}>End Game</button>
+                </div>
 
-              {
-                playersDict.length > 0 ? (
-                    <PlayerStats 
-                        playerArray={playersDict}
-                        playerIndex={randPlayerIndex}
-                    />
-                ):
-                <div><h3>Loading Stats</h3></div>
-              }
-              
-            </div>
-
-            {/* On screen feedback for last 5 guesses */}
-            <h4 id="5-guesses">Recent Guesses:</h4>
-
-            <div className="guesses">
-                {answerHistory
-                    .slice(-5)
-                    .reverse()
-                    .map((answer, index) => (
-                        <Guess key={index} correctResult={answer.answerResult} />
-                    ))
+                {
+                    playersDict.length > 0 ? (
+                        <PlayerStats 
+                            playerArray={playersDict}
+                            playerIndex={randPlayerIndex}
+                        />
+                    ):
+                    <div><h3>Loading Stats</h3></div>
                 }
+                
+                </div>
+
+                {/* On screen feedback for last 5 guesses */}
+                <h4 id="5-guesses">Recent Guesses:</h4>
+
+                <div className="guesses">
+                    {answerHistory
+                        .slice(-5)
+                        .reverse()
+                        .map((answer, index) => (
+                            <Guess key={index} correctResult={answer.answerResult} />
+                        ))
+                    }
+                </div>
             </div>
-          </div>
+        ) :
+        (
+            <Gameover
+                restartGame={restartGame}
+                falsifyGameOver={falsifyGameOver}
+                falsifyGameStarted={falsifyGameStarted}
+                gameMode={gameMode} 
+                guessHistory={answerHistory}
+            />
+        )    
     )
 }
 
