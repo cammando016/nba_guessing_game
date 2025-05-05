@@ -166,7 +166,11 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
                 </div>
 
                 {/* On screen feedback for last 5 guesses */}
-                <h4 id="5-guesses">Recent Guesses:</h4>
+                {
+                    answerHistory.filter(answer => answer.answerResult !== '-').length > 0 ? (
+                        <h4 id="5-guesses">Recent Guesses:</h4>
+                    ) : <></>
+                }
 
                 <div className="guesses">
                     {answerHistory
