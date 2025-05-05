@@ -3,7 +3,7 @@ import React from "react";
 function PlayerStats ({playerArray, playerIndex}) {
     return (
         <div className="player-stats">
-            <h3>{playerArray[playerIndex].playerName} 2024/25 Statistics</h3>
+            <h3>2024 - 2025 Season Statistics</h3>
             <p>Games Played: {playerArray[playerIndex].playerGames}</p>
             <p>Points per game: {playerArray[playerIndex].playerPpg}</p>
             <p>Rebounds per game: {playerArray[playerIndex].playerRpg}</p>

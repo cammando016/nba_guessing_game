@@ -43,7 +43,7 @@ function clearAnswersArray (array) {
     return array
 }
 
-function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlayerIndex, playersDict, setGuessResultHistory, clearGuessHistory}) {
+function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlayerIndex, playersDict, setGuessResultHistory, clearGuessHistory, gameMode, foulLimit, shotLimit}) {
     const [guess, setGuess] = useState(0);
     const [answerHistory, setAnswerHistory] = useState(initialAnswers);
     const [removeablePlayerDict, setRemoveablePlayerDict] = useState(playersDict);

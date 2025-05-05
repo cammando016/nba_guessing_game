@@ -8,6 +8,10 @@ import Homepage from './components/homepage';
 
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
+  const [gameMode, setGameMode] = useState('');
+  const [foulLimit, setFoulLimit] = useState(0);
+  const [shotLimit, setShotLimit] = useState(0);
+
   const [filteredPlayerData, setFilteredPlayerData] = useState([]);
   const [randPlayerIndex, setRandPlayerIndex] = useState(0);
 
@@ -31,9 +35,12 @@ function App() {
     fetchFilteredPlayers();
   }, []);
 
-  function handleClick() {
+  //Start game button for game settings form
+  function startGame({gameMode, shotLimit, foulLimit}) {
+    setGameMode(gameMode);
+    setShotLimit(shotLimit);
+    setFoulLimit(foulLimit);
     setGameStarted(true);
-    console.log("Click start ran");
   }
 
   return (
@@ -42,9 +49,14 @@ function App() {
         updateRandPlayerIndex={updateRandPlayerIndex} 
         randPlayerIndex={randPlayerIndex}
         playersDict={filteredPlayerData}
+        gameMode={gameMode}
+        shotLimit={shotLimit}
+        foulLimit={foulLimit}
       /> 
       : 
-      <StartScreen submitClicked={handleClick}/> 
+      <StartScreen 
+        startGame={startGame}
+      /> 
   )
 }
 

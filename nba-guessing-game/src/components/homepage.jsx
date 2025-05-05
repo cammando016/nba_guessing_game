@@ -12,7 +12,7 @@ import gameLogo from '../assets/images/displays/banner.jpg'
 import LeftCourt from '../assets/images/displays/court.jpg'
 import RightCourt from '../assets/images/displays/court-right.jpg'
 
-function Homepage({updateRandPlayerIndex, randPlayerIndex, playersDict}) {
+function Homepage({updateRandPlayerIndex, randPlayerIndex, playersDict, gameMode, foulLimit, shotLimit}) {
   const [correct, setCorrect] = useState(0);
   const [incorrect, setIncorrect] = useState(0);
   const [guessResultHistory, setGuessResultHistory] = useState([]);
@@ -60,6 +60,9 @@ function Homepage({updateRandPlayerIndex, randPlayerIndex, playersDict}) {
               playersDict={playersDict}
               setGuessResultHistory={updateGuessResultHistory}
               clearGuessHistory={clearGuessResultHistory}
+              gameMode={gameMode}
+              shotLimit={shotLimit}
+              foulLimit={foulLimit}
             />
           </div>
 
