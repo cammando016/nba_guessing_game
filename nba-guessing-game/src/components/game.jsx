@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Player from './player';
 import Guess from './recent-guess';
@@ -35,13 +35,12 @@ let initialAnswers = [
     }
 ]
 
-function clearAnswersArray (array) {
-    for(let i = 0; i < array.length; i++) {
-        array[i].enteredAnswer = ''
-        array[i].expectedAnswer = ''
-        array[i].answerResult = '-'
-    }
-    return array
+function clearAnswersArray () {
+    return initialAnswers.map(() => ({
+        enteredAnswer: '',
+        expectedAnswer: '',
+        answerResult: '-'
+    }));
 }
 
 function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlayerIndex, playersDict, setGuessResultHistory, clearGuessHistory, gameMode, foulLimit, shotLimit, falsifyGameStarted}) {
@@ -122,8 +121,7 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
     //Update to a new starting NBA player to guess
     function resetGame () {
         setGuess(0);
-        clearAnswersArray(initialAnswers);
-        setAnswerHistory(initialAnswers);
+        setAnswerHistory(clearAnswersArray());
         clearGuessHistory();
         setRemoveablePlayerDict(playersDict);
         setRandPlayerIndex(playersDict);
@@ -133,6 +131,30 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
     function endGame() {
         setGameOver(true);
     }
+
+    function checkGameOver(mode) {
+        switch (mode) {
+            case 'Shootout':
+                if(guess >= shotLimit){
+                    setGameOver(true);
+                }
+                break;
+            case 'Foulout':
+                if(answerHistory.filter(answer => answer.answerResult === 'I').length >= foulLimit){
+                    setGameOver(true);
+                }
+                break;
+            case 'Overtime':
+                if(removeablePlayerDict.length === 0){
+                    setGameOver(true);
+                }
+                break;
+        }
+    }
+
+    useEffect(() => {
+        checkGameOver(gameMode);
+    }, [guess, answerHistory, removeablePlayerDict, gameMode]);
 
     return (
         !gameOver ? (

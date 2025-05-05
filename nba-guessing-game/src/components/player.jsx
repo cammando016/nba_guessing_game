@@ -15,7 +15,6 @@ function Player({ playersDict, playerIndex }) {
                 <h3>{player.playerName}</h3>
             </div>
             <div className="player-photo-div">
-                {console.log(player)}
                 <img className="player-photo" src={player.playerHeadshotSrc} alt={`Player photo for player ID: ${player.playerId}`}/>
             </div>
         </>
