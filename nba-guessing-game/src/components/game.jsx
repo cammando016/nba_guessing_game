@@ -6,6 +6,7 @@ import Guess from './recent-guess';
 import GuessInput from './guess-input'
 import PlayerStats from './player-stats'
 import Gameover from './game-over'
+import teamNames from "../data/nba-teams";
 
 function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlayerIndex, playersDict, setGuessResultHistory, clearGuessHistory, gameMode, foulLimit, shotLimit, falsifyGameStarted}) {
     const [guess, setGuess] = useState(0);
@@ -15,6 +16,10 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
 
     //State for guess field input 
     const [guessInput, setGuessInput] = useState("");
+
+    const isGuessValid = teamNames.some(team =>
+        team.toLowerCase() === guessInput.trim().toLowerCase()
+    );
 
     const updateGuessInput = (newInput) => setGuessInput(newInput);
     const falsifyGameOver = () => setGameOver(false);
@@ -150,7 +155,7 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
                     />
 
                     <div id='game-interact-buttons'>
-                        <button type='submit' onClick={submitGuess}>Submit Guess</button>
+                        <button type='submit' onClick={submitGuess} disabled={!isGuessValid}>Submit Guess</button>
                     </div>
 
                     {
