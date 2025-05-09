@@ -46,15 +46,22 @@ function App() {
 
   return (
     gameStarted ? 
-      <Homepage  
-        updateRandPlayerIndex={updateRandPlayerIndex} 
-        randPlayerIndex={randPlayerIndex}
-        playersDict={filteredPlayerData}
-        gameMode={gameMode}
-        shotLimit={shotLimit}
-        foulLimit={foulLimit}
-        falsifyGameStarted={falsifyGameStarted}
-      /> 
+      <>
+        <Homepage  
+          updateRandPlayerIndex={updateRandPlayerIndex} 
+          randPlayerIndex={randPlayerIndex}
+          playersDict={filteredPlayerData}
+          gameMode={gameMode}
+          shotLimit={shotLimit}
+          foulLimit={foulLimit}
+          falsifyGameStarted={falsifyGameStarted}
+        />
+        <div className='margin-display' id='credits'>
+          <p>Credit</p>
+          <p>"Who He Play For?" segmented created by <a target="blank" href='https://www.youtube.com/@NBAonTNT'>"Inside The NBA" on TNT</a></p>
+          <p>Player images owned by the <a target="blank" href='https://www.nba.com/'>NBA</a></p>
+        </div> 
+      </>
       : 
       <StartScreen 
         startGame={startGame}
