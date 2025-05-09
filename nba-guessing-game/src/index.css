@@ -60,7 +60,7 @@
 #root {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   position: relative;
   min-height: 100vh;
 }
@@ -212,8 +212,10 @@
 }
 
 .player-photo {
-  height: auto;
-  width: 100%;
+  height: 150%;
+  width: auto;
+  object-fit: cover;
+  object-position: top;
 }
 
 .player-stat {
