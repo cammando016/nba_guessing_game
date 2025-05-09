@@ -1,40 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-
-//List of NBA Teams
-const teamNames = [
-    "Atlanta Hawks",
-    "Boston Celtics",
-    "Brooklyn Nets",
-    "Chicago Bulls",
-    "Charlotte Hornets",
-    "Cleveland Cavaliers",
-    "Dallas Mavericks",
-    "Denver Nuggets",
-    "Detroit Pistons",
-    "Golden State Warriors",
-    "Houston Rockets",
-    "Indiana Pacers",
-    "Los Angeles Clippers",
-    "Los Angeles Lakers",
-    "Memphis Grizzlies",
-    "Miami Heat",
-    "Milwaukee Bucks",
-    "Minnesota Timberwolves",
-    "New Orleans Pelicans",
-    "New York Knicks",
-    "Oklahoma City Thunder",
-    "Orlando Magic",
-    "Philadelphia 76ers",
-    "Phoenix Suns",
-    "Portland Trail Blazers",
-    "Sacramento Kings",
-    "San Antonio Spurs",
-    "Toronto Raptors",
-    "Utah Jazz",
-    "Washington Wizards",
-];
+import teamNames from '../data/nba-teams'
 
 function GuessInput({ guessInput, setGuessInput }) {
     const [suggestedTeams, setSuggestedTeams] = useState([]);
