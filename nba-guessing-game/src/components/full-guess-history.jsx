@@ -1,9 +1,29 @@
 import React from "react";
 
 function guessHistory ({ guessHistory }) {
-    return (
+    
+  function changeTeamDisplayName(teamName) {
+    switch (teamName.toLowerCase()){
+      case 'golden state warriors':
+        return 'Golden State';
+      case 'los angeles clippers':
+        return 'Clippers';
+      case 'los angeles lakers':
+        return 'Lakers';
+      case 'new orleans pelicans':
+        return 'New Orleans';
+      case 'portland trail blazers':
+        return 'Portland';
+      case 'san antonio spurs':
+        return 'San Antonio';
+      default:
+        return teamName.split(' ')[0];
+    }
+  }
+  return (
         <div className='full-guess-history'>
-          <table>
+          <h3 className="font-digital">Guess History</h3>
+          <table className="guess-history-table">
             <thead>
               <tr>
                 <th>Player Name</th>
@@ -13,13 +33,19 @@ function guessHistory ({ guessHistory }) {
             </thead>
             <tbody>
               { 
-                guessHistory.map((guess) => (
-                  <tr key={guess.playerId}>
-                    <td>{guess.playerName}</td>
-                    <td>{guess.guessedTeam}</td>
-                    <td>{guess.correctTeam}</td>
-                  </tr>
-                ))
+                guessHistory.map((guess) => {
+                  const isCorrect = guess.guessedTeam === guess.correctTeam;
+                  return (
+                    <tr 
+                      key={guess.playerId}
+                      className={isCorrect ? 'table-row-correct': 'table-row-incorrect'}
+                    >
+                      <td>{guess.playerName}</td>
+                      <td>{changeTeamDisplayName(guess.guessedTeam)}</td>
+                      <td>{changeTeamDisplayName(guess.correctTeam)}</td>
+                    </tr>
+                  );
+                })
               }
             </tbody>
           </table>

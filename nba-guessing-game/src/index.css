@@ -3,33 +3,111 @@
   src: url('/src/assets/images/digital-7.ttf');
 }
 
+.font-digital {
+  font-family: 'Digital-7';
+}
+
+/* Styling for scoreboard design based on NBA shot clock */
+.shot-clock-scoreboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 10px 0 20px;
+}
+
+.shot-clock {
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  font-size: xx-large;
+  border-style: solid;
+  border-color: black;
+}
+
+.shot-clock-correct {
+  color: green;
+}
+
+.shot-clock-incorrect {
+  color: red;
+}
+
+.shot-clock-counter {
+  color: goldenrod;
+}
+
+.shot-clock-scoreboard h3, .full-guess-history h3 {
+  margin: 0;
+  text-align: center;
+  font-size: xx-large;
+}
+
+.shot-clock p {
+  margin: 0;
+}
+
+.guess-description {
+  max-width: 100%;
+  font-size: x-large;
+}
+
+/* Page Layout styling */
 #root {
   padding: 0;
 }
 
-.header {
-  height: 20vh;
+  /* Game Content (LHS) */
+.game-player-content {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.player-guesser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+
+#five-guesses {
+  margin-bottom: 0;
+}
+
+#game-mode-buttons {
+  margin-bottom: 10px;
 }
 
 .banner-image {
-  max-height: 20vh;
-  width: 60vw;
+  max-height: 15vh;
+  width: auto;
+  flex-shrink: 1;
 }
 
-.full-screen {
+.header {
   display: flex;
-  flex-direction: row;
-  max-width: 100vw;
-}
-
-.border-image {
-  height: 100vh;
-  width: 20vw;
+  align-items: center;
+  justify-content: center;
 }
 
 .screen-middle {
   display: flex;
   flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.6);
+  max-width: 1068px;
 }
  
 #guess-input {
@@ -66,17 +144,18 @@
 }
 
 .suggested-team:hover {
-  background-color: paleturquoise;
+  background-color: lightsalmon;
 }
 
 .suggested-team:active {
-  background-color: turquoise;
+  background-color: lightcoral;
 }
 
 .guesses {
   display: flex;
   flex-direction: row;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .guess {
@@ -102,23 +181,8 @@
 .main-content {
   display: flex;
   flex-direction: row;
-  height: 79vh;
-}
-
-.game-player-content {
-  border-style: solid;
-  border-color: black;
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.player-guesser {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  height: 100vh;
+  width: 1064px;
 }
 
 .player-photo-div {
@@ -127,6 +191,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  flex-grow: 1;
 }
 
 .player-photo {
@@ -134,70 +199,59 @@
   width: 100%;
 }
 
+.player-stat {
+  display: flex;
+  width: 100%;
+}
+
+.stats {
+  margin: 5px 0 0;
+}
+
+.stat-name {
+  flex-grow: 1;
+}
+
+.stat-number {
+  display: inline;
+  
+}
+
 .game-scoring-content {
   width: 40%;
-}
-
-.shot-clock-scoreboard {
-  text-align: center;
-  border-style: solid;
-  border-color: black;
-
   display: flex;
+  height: 100vh;
   flex-direction: column;
-  align-items: center;
-
-  height: 40%;
-  font-family: 'Digital-7';
-  font-size: xx-large;
-}
-
-.shot-clock {
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-  height: 50%;
-
-  border-style: solid;
-  border-color: black;
-}
-
-.shot-clock-correct {
-  color: green;
-}
-
-.shot-clock-incorrect {
-  color: red;
-}
-
-.shot-clock-counter {
-  color: goldenrod;
-}
-
-.shot-clock-scoreboard h3 {
-  margin: 0;
-  margin-bottom: 20px;
-}
-
-.shot-clock p {
-  margin: 0;
 }
 
 .full-guess-history {
-  border-style: solid;
-  border-color: black;
   height: 60%;
   overflow: scroll;
 }
 
-/* Initial Vite project styling */
+.guess-history-table {
+  width: 100%;
+}
+
+.guess-history-table th {
+  border-bottom: 1px solid grey;
+}
+
+.table-row-correct {
+  background-color: rgba(0, 255, 0, 0.2);
+}
+
+.table-row-incorrect {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+
+  display: flex;
+  justify-content: center;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -211,6 +265,35 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-image: url('generic-court-background.jpg');
+  background-size:cover;
+  background-position: center;
+}
+
+#startscreen {
+  background-color: rgba(255, 255, 255, 0.6);
+  max-width: 40%;
+  align-content: center;
+  justify-self: center;
+}
+
+#startscreen form {
+  display: flex;
+  flex-direction: column;
+}
+
+#startscreen img {
+  max-width: 100%;
+  height: auto;
+}
+
+#startscreen p {
+  padding: 4px;
+}
+
+#startscreen button {
+  margin: 10px;
+  align-content: center;
 }
 
 button {
@@ -241,5 +324,12 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-image: url('mobile-generic-court-background.jpg');
+    background-position: center;
   }
 }

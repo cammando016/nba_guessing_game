@@ -3,14 +3,11 @@ import { useState } from "react";
 
 //Component imports
 import Game from "./game";
-import Background from './background.jsx'
 import ShotClock from './shotclock.jsx'
 import GuessHistory from './full-guess-history.jsx'
 
 //Image imports
 import gameLogo from '../assets/images/displays/banner.jpg'
-import LeftCourt from '../assets/images/displays/court.jpg'
-import RightCourt from '../assets/images/displays/court-right.jpg'
 
 function Homepage({updateRandPlayerIndex, randPlayerIndex, playersDict, gameMode, foulLimit, shotLimit, falsifyGameStarted}) {
   const [correct, setCorrect] = useState(0);
@@ -34,21 +31,8 @@ function Homepage({updateRandPlayerIndex, randPlayerIndex, playersDict, gameMode
   const clearGuessResultHistory = () => setGuessResultHistory([]);
 
   return (
-    <div id="homepage" className = 'full-screen'>
-      <Background 
-        className='left' 
-        src={LeftCourt} 
-        alt='Left half of basketball court' 
-      />
 
       <div className='screen-middle'>
-        <div className='header'>
-          <img
-            className='banner-image'
-            src={gameLogo}
-            alt='Game Logo'
-          />
-        </div>
 
         <div className='main-content'>
           <div className='game-player-content'>
@@ -68,6 +52,13 @@ function Homepage({updateRandPlayerIndex, randPlayerIndex, playersDict, gameMode
           </div>
 
           <div className='game-scoring-content'>
+            <div className='header'>
+              <img
+                className='banner-image'
+                src={gameLogo}
+                alt='Game Logo'
+              />
+            </div>  
             <ShotClock 
               correctGuesses={correct}
               incorrectGuesses={incorrect}
@@ -82,13 +73,7 @@ function Homepage({updateRandPlayerIndex, randPlayerIndex, playersDict, gameMode
         </div>
 
       </div>
-
-      <Background 
-        className='right'
-        src={RightCourt}
-        alt='Right half of basketball court'
-      />
-    </div>
+      
   )
 }
 

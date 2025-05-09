@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import gameLogo from '../assets/images/displays/banner.jpg'
 
 function StartScreen({startGame}) {
     const [gameMode, setGameMode] = useState('Shootout');
@@ -13,7 +14,7 @@ function StartScreen({startGame}) {
     return (
         <div id="startscreen">
             <div id="start-screen-heading">
-                <h3>Who He Play For?</h3>
+                <img src={gameLogo} alt="Who He Play For?" />
             </div>
 
             <div id="start-game-config">
@@ -32,8 +33,22 @@ function StartScreen({startGame}) {
 
                     {
                         gameMode === 'Shootout' ? (
+                            <p>Shootout Mode: Select how many players you want to guess, up to 99</p>
+                        ) :
+                        (
+                            gameMode === 'Overtime' ? (
+                                <p>Overtime Mode: Continue guessing players until you end the round or guess every active player from this season</p>
+                            ) : 
+                            (
+                                <p>Foul Out Mode: Select the number of incorrect guesses allowed before the game ends</p>
+                            )
+                        )
+                    }
+
+                    {
+                        gameMode === 'Shootout' ? (
                             <fieldset id="shootout-config">
-                                <legend>Shootout mode Shots</legend>
+                                <legend>Shootout Mode Shot Limit</legend>
                                 <label htmlFor="player_guess_count">Guesses Per Player</label>
                                 <input type="number" id="player_guess_count" name="player_guess_count" max={99} defaultValue={10} onChange={(e) => setShotLimit(e.target.value)}/>
                             </fieldset>
@@ -43,7 +58,7 @@ function StartScreen({startGame}) {
                     {
                         gameMode === 'Foulout' ? (
                             <fieldset id="foulout-config">
-                                <legend>Foul-Out mode foul limit</legend>
+                                <legend>Foul-Out Mode Foul Limit</legend>
             
                                 <input type="radio" id="one_foul" name="foul_limit" value={1} checked={foulLimit === 1} onChange={() => setFoulLimit(1)}/>
                                 <label htmlFor="one_foul">1 Foul</label>

@@ -139,50 +139,49 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
         !gameOver ? (
             <div className='game-content'>
                 <div className='player-guesser'>
-                <Player
-                    playersDict={playersDict}
-                    playerIndex={randPlayerIndex}
-                />
+                    <Player
+                        playersDict={playersDict}
+                        playerIndex={randPlayerIndex}
+                    />
 
-                <GuessInput 
-                    guessInput={guessInput}
-                    setGuessInput={updateGuessInput}
-                />
+                    <GuessInput 
+                        guessInput={guessInput}
+                        setGuessInput={updateGuessInput}
+                    />
 
-                <div id='game-interact-buttons'>
-                    <button type='submit' onClick={submitGuess}>Submit Guess</button>
-                </div>
+                    <div id='game-interact-buttons'>
+                        <button type='submit' onClick={submitGuess}>Submit Guess</button>
+                    </div>
 
-                {
-                    playersDict.length > 0 ? (
-                        <PlayerStats 
-                            playerArray={playersDict}
-                            playerIndex={randPlayerIndex}
-                        />
-                    ):
-                    <div><h3>Loading Stats</h3></div>
-                }
-                
-                </div>
-
-                {/* On screen feedback for last 5 guesses */}
-                {
-                    answerHistory.filter(answer => answer.answerResult !== '-').length > 0 ? (
-                        <h4 id="5-guesses">Recent Guesses:</h4>
-                    ) : <></>
-                }
-
-                <div className="guesses">
-                    {answerHistory
-                        .slice(-5)
-                        .reverse()
-                        .map((answer, index) => (
-                            <Guess key={index} correctResult={answer.answerResult} />
-                        ))
+                    {
+                        playersDict.length > 0 ? (
+                            <PlayerStats 
+                                playerArray={playersDict}
+                                playerIndex={randPlayerIndex}
+                            />
+                        ):
+                        <div><h3>Loading Stats</h3></div>
                     }
+                
+                    {/* On screen feedback for last 5 guesses */}
+                    {
+                        answerHistory.filter(answer => answer.answerResult !== '-').length > 0 ? (
+                            <h4 id="five-guesses">Recent Guesses:</h4>
+                        ) : <></>
+                    }
+
+                    <div className="guesses">
+                        {answerHistory
+                            .slice(-5)
+                            .reverse()
+                            .map((answer, index) => (
+                                <Guess key={index} correctResult={answer.answerResult} />
+                            ))
+                        }
+                    </div>
                 </div>
 
-                <div>
+                <div id="game-mode-buttons">
                     <button onClick={resetGame}>Restart Game</button>
                     <button onClick={endGame}>End Game</button>
                     <button onClick={changeGameSettings}>Change Mode</button>
