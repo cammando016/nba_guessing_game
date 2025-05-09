@@ -5,9 +5,7 @@ import { useState } from "react";
 import Game from "./game";
 import ShotClock from './shotclock.jsx'
 import GuessHistory from './full-guess-history.jsx'
-
-//Image imports
-import gameLogo from '../assets/images/displays/banner.jpg'
+import ModeDisplay from "./mode-display";
 
 function Homepage({updateRandPlayerIndex, randPlayerIndex, playersDict, gameMode, foulLimit, shotLimit, falsifyGameStarted}) {
   const [correct, setCorrect] = useState(0);
@@ -52,13 +50,12 @@ function Homepage({updateRandPlayerIndex, randPlayerIndex, playersDict, gameMode
           </div>
 
           <div className='game-scoring-content'>
-            <div className='header'>
-              <img
-                className='banner-image'
-                src={gameLogo}
-                alt='Game Logo'
-              />
-            </div>  
+            <ModeDisplay
+              gameMode={gameMode}
+              foulLimit={foulLimit}
+              shotLimit={shotLimit}
+              guessHistory={guessResultHistory}
+            />
             <ShotClock 
               correctGuesses={correct}
               incorrectGuesses={incorrect}

@@ -296,6 +296,20 @@ body {
   align-content: center;
 }
 
+.setting-display {
+  display: flex;
+  align-items: flex-start;
+  padding: 2px 15px 2px 2px
+}
+
+.setting-display h3, .setting-display p {
+  margin: 0;
+}
+
+.display-heading {
+  flex-grow: 1;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;

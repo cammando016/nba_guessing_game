@@ -50,7 +50,17 @@ function StartScreen({startGame}) {
                             <fieldset id="shootout-config">
                                 <legend>Shootout Mode Shot Limit</legend>
                                 <label htmlFor="player_guess_count">Guesses Per Player</label>
-                                <input type="number" id="player_guess_count" name="player_guess_count" max={99} defaultValue={10} onChange={(e) => setShotLimit(e.target.value)}/>
+                                <input 
+                                    type="number" 
+                                    id="player_guess_count" 
+                                    name="player_guess_count" 
+                                    min={1} max={99}
+                                    value={shotLimit}
+                                    onChange={(e) => {
+                                        const value = Math.min(Math.max(Number(e.target.value), 1), 99)
+                                        setShotLimit(value)}
+                                    }
+                                />
                             </fieldset>
                         ) : <></>
                     }
@@ -81,7 +91,7 @@ function StartScreen({startGame}) {
                         ) : <></>
                     }
 
-                    <button type="button" onClick={handleSubmit}>Start Game</button>
+                    <button type="button" onClick={handleSubmit} disabled={shotLimit < 1 || shotLimit > 99}>Start Game</button>
 
                 </form>
             </div>
