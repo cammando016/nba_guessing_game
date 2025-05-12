@@ -12,6 +12,8 @@ function guessHistory ({ guessHistory }) {
         return 'Lakers';
       case 'new orleans pelicans':
         return 'New Orleans';
+      case 'new york knicks':
+          return 'New York';
       case 'portland trail blazers':
         return 'Portland';
       case 'san antonio spurs':

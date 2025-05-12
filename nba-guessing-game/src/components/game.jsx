@@ -10,8 +10,9 @@ import SubmitGuess from "./submit-guess";
 import GameModeButtons from "./game-mode-buttons";
 //import data
 import teamNames from "../data/nba-teams";
+import useIsMobile from '../hooks/useIsMobile';
 
-function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlayerIndex, playersDict, setGuessResultHistory, clearGuessHistory, gameMode, foulLimit, shotLimit, falsifyGameStarted}) {
+function Game ({children, setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlayerIndex, playersDict, setGuessResultHistory, clearGuessHistory, gameMode, foulLimit, shotLimit, falsifyGameStarted}) {
     const [guess, setGuess] = useState(0);
     const [answerHistory, setAnswerHistory] = useState(() => clearAnswersArray());
     const [removeablePlayerDict, setRemoveablePlayerDict] = useState(playersDict);
@@ -19,6 +20,10 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
 
     //State for guess field input 
     const [guessInput, setGuessInput] = useState("");
+
+    //Data for mobile display layout
+    const isMobile = useIsMobile();
+    const [firstChild, secondChild] = React.Children.toArray(children);
 
     const isGuessValid = teamNames.some(team =>
         team.toLowerCase() === guessInput.trim().toLowerCase()
@@ -146,38 +151,87 @@ function Game ({setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlay
 
     return (
         !gameOver ? (
-            <div className='game-content'>
-                <div className='player-guesser'>
-                    <Player
-                        playersDict={playersDict}
-                        playerIndex={randPlayerIndex}
-                    />
+            !isMobile ? (
+                <div className='game-content'>
+                    <div className='player-guesser'>
+                        <Player
+                            playersDict={playersDict}
+                            playerIndex={randPlayerIndex}
+                        />
 
-                    <GuessInput 
-                        guessInput={guessInput}
-                        setGuessInput={updateGuessInput}
-                    />
+                        <GuessInput 
+                            guessInput={guessInput}
+                            setGuessInput={updateGuessInput}
+                        />
 
-                    <SubmitGuess 
-                        submitGuess={submitGuess}
-                        isGuessValid={isGuessValid}
-                    />
+                        <SubmitGuess 
+                            submitGuess={submitGuess}
+                            isGuessValid={isGuessValid}
+                        />
 
-                    <PlayerStats 
-                        playerArray={playersDict}
-                        playerIndex={randPlayerIndex}
+                        <PlayerStats 
+                            playerArray={playersDict}
+                            playerIndex={randPlayerIndex}
+                        />
+                    
+                        {/* On screen feedback for last 5 guesses */}
+                        <FiveGuesses answerHistory={answerHistory}/>
+                    </div>
+
+                    <GameModeButtons 
+                        resetGame={resetGame}
+                        endGame={endGame}
+                        changeGameSettings={changeGameSettings}
                     />
-                
-                    {/* On screen feedback for last 5 guesses */}
-                    <FiveGuesses answerHistory={answerHistory}/>
                 </div>
+            ) : (
+                <div className='game-content-mobile'>
+                    <div className='player-display-mobile'>
+                        <Player 
+                            playersDict={playersDict}
+                            playerIndex={randPlayerIndex}
+                        />
 
-                <GameModeButtons 
-                    resetGame={resetGame}
-                    endGame={endGame}
-                    changeGameSettings={changeGameSettings}
-                />
-            </div>
+                        <PlayerStats
+                            playerArray={playersDict}
+                            playerIndex={randPlayerIndex}
+                        />
+                    </div>
+
+                    <div className='submit-guess-mobile'>
+                        <GuessInput
+                            guessInput={guessInput}
+                            setGuessInput={updateGuessInput}
+                        />
+                        <SubmitGuess
+                            submitGuess={submitGuess}
+                            isGuessValid={isGuessValid}
+                        />
+                    </div>
+
+                    <div className='guess-history-mobile'>
+                        <FiveGuesses
+                            answerHistory={answerHistory}
+                        />
+
+                        <div className="full-guess-history">
+                            {firstChild}
+                        </div>
+                    </div>
+
+                    <div className='mode-display-mobile'>
+                        {secondChild}
+                    </div>
+
+                    <div className=''>
+                        <GameModeButtons 
+                            resetGame={resetGame}
+                            endGame={endGame}
+                            changeGameSettings={changeGameSettings}
+                        />
+                    </div>
+                </div>
+            )
         ) :
         (
             <Gameover

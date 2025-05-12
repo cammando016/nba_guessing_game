@@ -6,6 +6,8 @@ import { useState, useEffect } from 'react';
 import StartScreen from './components/start-screen';
 import Homepage from './components/homepage';
 
+import useIsMobile from './hooks/useIsMobile';
+
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameMode, setGameMode] = useState('');
@@ -14,6 +16,8 @@ function App() {
 
   const [filteredPlayerData, setFilteredPlayerData] = useState([]);
   const [randPlayerIndex, setRandPlayerIndex] = useState(0);
+
+  const isMobile = useIsMobile();
 
   const updateRandPlayerIndex = (array) => setRandPlayerIndex(Math.floor(Math.random()*array.length));
   const falsifyGameStarted = () => setGameStarted(false);
@@ -56,11 +60,14 @@ function App() {
           foulLimit={foulLimit}
           falsifyGameStarted={falsifyGameStarted}
         />
-        <div className='margin-display' id='credits'>
-          <p>Credit</p>
-          <p>"Who He Play For?" segmented created by <a target="blank" href='https://www.youtube.com/@NBAonTNT'>"Inside The NBA" on TNT</a></p>
-          <p>Player images owned by the <a target="blank" href='https://www.nba.com/'>NBA</a></p>
-        </div> 
+        { !isMobile && (
+            <div className='margin-display' id='credits'>
+              <p>Credit</p>
+              <p>"Who He Play For?" segmented created by <a target="blank" href='https://www.youtube.com/@NBAonTNT'>"Inside The NBA" on TNT</a></p>
+              <p>Player images owned by the <a target="blank" href='https://www.nba.com/'>NBA</a></p>
+            </div> 
+          )
+        }
       </>
       : 
       <StartScreen 
