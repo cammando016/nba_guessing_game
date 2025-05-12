@@ -212,7 +212,7 @@
 }
 
 .player-photo {
-  height: 150%;
+  height: 145%;
   width: auto;
   object-fit: cover;
   object-position: top;
