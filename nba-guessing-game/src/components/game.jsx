@@ -218,13 +218,11 @@ function Game ({children, setCorrectCount, setIncorrectCount, setRandPlayerIndex
                         {secondChild}
                     </div>
 
-                    <div className=''>
-                        <GameModeButtons 
-                            resetGame={resetGame}
-                            endGame={endGame}
-                            changeGameSettings={changeGameSettings}
-                        />
-                    </div>
+                    <GameModeButtons 
+                        resetGame={resetGame}
+                        endGame={endGame}
+                        changeGameSettings={changeGameSettings}
+                    />
                 </div>
             )
         ) :

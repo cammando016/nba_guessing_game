@@ -331,11 +331,22 @@ button {
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
-  background-color: #f9f9f9;
+  background-color: black;
+  color: darkgreen;
+  margin: 2px;
+}
+
+button:disabled{
+  color: red;
+  cursor: not-allowed;
+}
+
+button:disabled:hover{
+  border-color: red;
 }
 
 button:hover {
-  border-color: #646cff;
+  border-color: darkgreen;
 }
 
 button:focus, button:focus-visible {
@@ -456,6 +467,15 @@ a:hover {
 
   td {
     text-align: center;
+  }
+
+  #game-mode-buttons {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
+  #game-mode-buttons button {
+    flex-shrink: 1;
   }
 
   .mobile-game-over {
