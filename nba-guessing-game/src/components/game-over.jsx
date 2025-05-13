@@ -1,4 +1,5 @@
 import React from "react";
+import gameLogo from '../assets/images/displays/banner.jpg'
 
 function Gameover ({restartGame, falsifyGameOver, falsifyGameStarted, gameMode, guessHistory}) {
     
@@ -15,14 +16,31 @@ function Gameover ({restartGame, falsifyGameOver, falsifyGameStarted, gameMode, 
     return (
         <div id="game-over-wrapper">
             <div id="game-over-screen">
-                <h3>Who He Play For</h3>
-                <p>Game Mode: {gameMode}</p>
-                <p>Total Players Guessed: {guessHistory.filter(guess => (guess.answerResult !== '-')).length}</p>
-                <p>Correct Guesses: {guessHistory.filter(guess => guess.answerResult === 'C').length}</p>
-                <p>Incorrect Guesses: {guessHistory.filter(guess => guess.answerResult === 'I').length}</p>
+                <img className='banner-image' src={gameLogo} alt="Who He Play For?" />
 
-                <button onClick={handleReplayClick}>Replay Mode</button>
-                <button onClick={handleChangeModeClick}>Change Mode</button>
+                <div id='game-over-results'>
+                    <div className='game-over-category'>
+                        <span className='game-over-heading'><p className='game-over-p'>Game Mode:</p></span>
+                        <span className='game-over-outcome'><p className='game-over-p'>{gameMode}</p></span>
+                    </div>
+                    <div className='game-over-category'>
+                        <span className='game-over-heading'><p className='game-over-p'>Total Players Guessed:</p></span>
+                        <span className='game-over-outcome'><p className='game-over-p'>{guessHistory.filter(guess => (guess.answerResult !== '-')).length}</p></span>
+                    </div>
+                    <div className='game-over-category'>
+                        <span className='game-over-heading'><p className='game-over-p'>Correct Guesses:</p></span>
+                        <span className='game-over-outcome'><p className='game-over-p'>{guessHistory.filter(guess => guess.answerResult === 'C').length}</p></span>
+                    </div>
+                    <div className='game-over-category'>
+                        <span className='game-over-heading'><p className='game-over-p'>Incorrect Guesses:</p></span>
+                        <span className='game-over-outcome'><p className='game-over-p'>{guessHistory.filter(guess => guess.answerResult === 'I').length}</p></span>
+                    </div>
+                </div>
+
+                <div id='game-over-interactivity'>
+                    <button onClick={handleReplayClick}>Replay Mode</button>
+                    <button onClick={handleChangeModeClick}>Change Mode</button>
+                </div>
             </div>
         </div>
     )

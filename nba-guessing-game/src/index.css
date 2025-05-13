@@ -106,12 +106,6 @@
   margin-bottom: 10px;
 }
 
-.banner-image {
-  max-height: 15vh;
-  width: auto;
-  flex-shrink: 1;
-}
-
 .header {
   display: flex;
   align-items: center;
@@ -212,7 +206,7 @@
 }
 
 .player-photo {
-  height: 145%;
+  height: 150%;
   width: auto;
   object-fit: cover;
   object-position: top;
@@ -233,7 +227,6 @@
 
 .stat-number {
   display: inline;
-  
 }
 
 .game-scoring-content {
@@ -301,8 +294,8 @@ body {
   flex-direction: column;
 }
 
-#startscreen img {
-  max-width: 100%;
+.banner-image {
+  width: 100%;
   height: auto;
 }
 
@@ -338,31 +331,152 @@ button {
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
+  background-color: #f9f9f9;
 }
+
 button:hover {
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible {
+
+button:focus, button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+a:hover {
+  color: #747bff;
 }
 
+#game-over-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#game-over-results {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  padding-top: 10px;
+}
+
+.game-over-category {
+  display: flex;
+}
+
+.game-over-heading {
+  flex-grow: 1;
+}
+
+.game-over-p {
+  margin: 2px;
+}
+
+#game-over-interactivity {
+  margin: 10px;
+}
+
+/* Mobile Styling */
 @media only screen and (max-width: 600px) {
   body {
     background-image: url('/mobile-generic-court-background.jpg');
     background-position: center;
+  }
+
+  #startscreen {
+    min-width: 90%;
+  }
+
+  .game-content-mobile {
+    display: flex;
+    flex-direction: column;
+    width: 98vw;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 5px;
+    min-height: 90vh;
+    justify-content: space-between;
+  }
+
+  .player-name-mobile {
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .player-mobile-div {
+    display: flex;
+  }
+
+  .mobile-photo-wrapper {
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-grow: 1;
+  }
+
+  .player-photo-mobile {
+    height: 145%;
+    width: auto;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .mobile-photo-wrapper, #name {
+    max-width: 60%;
+  }
+
+  #stats {
+    width: 40%;
+  }
+
+  #player-stats-mobile {
+    width: 60%;
+    padding-right: 20px;
+  }
+
+  .submit-guess-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #guess-input {
+    width: 80%;
+  }
+
+  .guesses {
+    display: flex;
+    justify-content: center;
+  }
+
+  #five-guesses {
+    text-align: center;
+  }
+
+  td {
+    text-align: center;
+  }
+
+  .mobile-game-over {
+    max-width: 90vw;
+    max-height: 90vh;
+    background-color: rgba(255, 255, 255, 0.6);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .font-digital {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  .full-guess-history {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 0;
+    overflow: scroll;
   }
 }

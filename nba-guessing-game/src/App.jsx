@@ -47,7 +47,7 @@ function App() {
     setFoulLimit(foulLimit);
     setGameStarted(true);
   }
-
+  
   return (
     gameStarted ? 
       <>

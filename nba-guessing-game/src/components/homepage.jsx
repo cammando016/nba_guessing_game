@@ -6,6 +6,7 @@ import Game from "./game";
 import ShotClock from './shotclock.jsx'
 import GuessHistory from './full-guess-history.jsx'
 import ModeDisplay from "./mode-display";
+import MobileGuessHistory from "./mobile-guess-history";
 
 //Import data
 import useIsMobile from '../hooks/useIsMobile';
@@ -45,13 +46,13 @@ function Homepage({updateRandPlayerIndex, randPlayerIndex, playersDict, gameMode
                 setRandPlayerIndex={updateRandPlayerIndex}
                 randPlayerIndex={randPlayerIndex}
                 playersDict={playersDict}
+                guessResultHistory={guessResultHistory}
                 setGuessResultHistory={updateGuessResultHistory}
                 clearGuessHistory={clearGuessResultHistory}
                 gameMode={gameMode}
                 shotLimit={shotLimit}
                 foulLimit={foulLimit}
                 falsifyGameStarted={falsifyGameStarted}
-                isMobile={isMobile}
               />
             </div>
 
@@ -83,15 +84,15 @@ function Homepage({updateRandPlayerIndex, randPlayerIndex, playersDict, gameMode
           setRandPlayerIndex={updateRandPlayerIndex}
           randPlayerIndex={randPlayerIndex}
           playersDict={playersDict}
+          guessResultHistory={guessResultHistory}
           setGuessResultHistory={updateGuessResultHistory}
           clearGuessHistory={clearGuessResultHistory}
           gameMode={gameMode}
           shotLimit={shotLimit}
           foulLimit={foulLimit}
           falsifyGameStarted={falsifyGameStarted}
-          isMobile={isMobile}
         >
-          <GuessHistory 
+          <MobileGuessHistory 
             guessHistory={guessResultHistory}
           />
 

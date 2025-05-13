@@ -8,11 +8,12 @@ import Gameover from './game-over'
 import FiveGuesses from "./five-guesses";
 import SubmitGuess from "./submit-guess";
 import GameModeButtons from "./game-mode-buttons";
+import GuessHistory from "./full-guess-history";
 //import data
 import teamNames from "../data/nba-teams";
 import useIsMobile from '../hooks/useIsMobile';
 
-function Game ({children, setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlayerIndex, playersDict, setGuessResultHistory, clearGuessHistory, gameMode, foulLimit, shotLimit, falsifyGameStarted}) {
+function Game ({children, setCorrectCount, setIncorrectCount, setRandPlayerIndex, randPlayerIndex, playersDict, guessResultHistory, setGuessResultHistory, clearGuessHistory, gameMode, foulLimit, shotLimit, falsifyGameStarted}) {
     const [guess, setGuess] = useState(0);
     const [answerHistory, setAnswerHistory] = useState(() => clearAnswersArray());
     const [removeablePlayerDict, setRemoveablePlayerDict] = useState(playersDict);
@@ -100,7 +101,6 @@ function Game ({children, setCorrectCount, setIncorrectCount, setRandPlayerIndex
         ))
         setRemoveablePlayerDict(updatedPlayerDict);
         setRandPlayerIndex(updatedPlayerDict);
-        console.log(updatedPlayerDict.length)
     }
 
     //Reset game to no answer history
@@ -191,11 +191,6 @@ function Game ({children, setCorrectCount, setIncorrectCount, setRandPlayerIndex
                             playersDict={playersDict}
                             playerIndex={randPlayerIndex}
                         />
-
-                        <PlayerStats
-                            playerArray={playersDict}
-                            playerIndex={randPlayerIndex}
-                        />
                     </div>
 
                     <div className='submit-guess-mobile'>
@@ -234,13 +229,24 @@ function Game ({children, setCorrectCount, setIncorrectCount, setRandPlayerIndex
             )
         ) :
         (
-            <Gameover
-                restartGame={restartGame}
-                falsifyGameOver={falsifyGameOver}
-                falsifyGameStarted={falsifyGameStarted}
-                gameMode={gameMode} 
-                guessHistory={answerHistory}
-            />
+            <>
+                <div className='mobile-game-over'>
+                    <Gameover
+                        restartGame={restartGame}
+                        falsifyGameOver={falsifyGameOver}
+                        falsifyGameStarted={falsifyGameStarted}
+                        gameMode={gameMode} 
+                        guessHistory={answerHistory}
+                    />
+                    {
+                        isMobile && (
+                            <GuessHistory
+                                guessHistory={guessResultHistory}
+                            />
+                        )
+                    }
+                </div>
+            </>
         )    
     )
 }

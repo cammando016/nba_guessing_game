@@ -14,7 +14,7 @@ function StartScreen({startGame}) {
     return (
         <div id="startscreen">
             <div id="start-screen-heading">
-                <img src={gameLogo} alt="Who He Play For?" />
+                <img className='banner-image' src={gameLogo} alt="Who He Play For?" />
             </div>
 
             <div id="start-game-config">

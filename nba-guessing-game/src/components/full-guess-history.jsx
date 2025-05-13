@@ -1,27 +1,7 @@
 import React from "react";
+import changeTeamDisplayName from "../hooks/changeTeamName";
 
 function guessHistory ({ guessHistory }) {
-    
-  function changeTeamDisplayName(teamName) {
-    switch (teamName.toLowerCase()){
-      case 'golden state warriors':
-        return 'Golden State';
-      case 'los angeles clippers':
-        return 'Clippers';
-      case 'los angeles lakers':
-        return 'Lakers';
-      case 'new orleans pelicans':
-        return 'New Orleans';
-      case 'new york knicks':
-          return 'New York';
-      case 'portland trail blazers':
-        return 'Portland';
-      case 'san antonio spurs':
-        return 'San Antonio';
-      default:
-        return teamName.split(' ')[0];
-    }
-  }
   return (
         <div className='full-guess-history'>
           <h3 className="font-digital">Guess History</h3>
@@ -34,7 +14,7 @@ function guessHistory ({ guessHistory }) {
               </tr>
             </thead>
             <tbody>
-              { 
+              {
                 guessHistory.map((guess) => {
                   const isCorrect = guess.guessedTeam === guess.correctTeam;
                   return (
@@ -48,7 +28,7 @@ function guessHistory ({ guessHistory }) {
                     </tr>
                   );
                 })
-              }
+              }        
             </tbody>
           </table>
         </div>
