@@ -1,4 +1,4 @@
-# NBA Player's Team Guessing Game
+# NBA Player Team Guessing Game
 
 This project combined my skills learned across online tutorials and practice exercises to create a single page guessing game for mobile and desktop display.
 
@@ -7,10 +7,10 @@ Users can play any of three different game modes, which meant my components had 
 Games modes include unlimited (up to all players) guesses, a foul out mode with a limit on incorrect guesses allowed, and a shot limit mode with a set number of players to guess.
 
 # Tech Stack
-- React
-- JavaScript
-- HTML
-- CSSS
-- Python
+- - React
+- - JavaScript
+- - HTML
+- - CSS
+- - Python
 
 This project expanded on my React development skills for page content and external data usage. The new challenge I faced during this development was related to collecting player data. I had to use 2 separate APIs for the player statistics, and the player photos. Both APIs had different IDs, meaning I needed to write a python script to save each player's photo and map the IDs to match each other.
