@@ -1,4 +1,4 @@
-# About This Project: NBA Player Guessing Game
+# About This Project: NBA Guessing Game
 
 This project combined my skills learned across online tutorials and practice exercises to create a single page guessing game for mobile and desktop display.
 
